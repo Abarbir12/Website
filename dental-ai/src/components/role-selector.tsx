@@ -31,7 +31,7 @@ const roles = [
         ai: "Clear winner: expand hygiene capacity at Clinics 2 and 5. Both have 3+ week booking delays and we're losing 15-20 patients/week to competitors. Adding 2 hygienists would cost $14k/month but generate $47k additional revenue at current conversion rates. ROI in 11 weeks. I can draft the job postings and adjust supply orders now."
       }
     ],
-    metrics: ["34% faster decisions ⁴", "3.2× ROI ³"]
+    metrics: ["34% faster decisions", "3.2× ROI"]
   },
   {
     id: "cfo",
@@ -50,7 +50,7 @@ const roles = [
         ai: "Improved by 4.2 days this quarter. Collections at 42 days (down from 46). Inventory turns increased to 8.1x from 7.3x - we're holding $31k less in supplies. Only concern: insurance reimbursements from Delta Dental are stretching to 55+ days. I recommend disputing 18 claims totaling $23k that exceed contract terms."
       }
     ],
-    metrics: ["22% higher savings ⁵", "99% data accuracy"]
+    metrics: ["22% higher savings", "99% data accuracy"]
   },
   {
     id: "coo",
@@ -69,7 +69,7 @@ const roles = [
         ai: "Biggest bottleneck: sterilization turnaround averaging 47 min between patients. If we add a second autoclave at Clinics 2, 5, and 8 ($4.5k each), we cut this to 22 min. That's 3 extra patients/day per clinic = $2,250 daily revenue increase. Also, implementing staggered scheduling would reduce lobby wait times by 65%. Want the optimized schedule template?"
       }
     ],
-    metrics: ["28% fewer stockouts ²", "15% higher chair use"]
+    metrics: ["28% fewer stockouts", "15% higher chair use"]
   },
   {
     id: "procurement",
@@ -88,7 +88,7 @@ const roles = [
         ai: "Yes - 3 categories flagged. Gloves: paying 23% above market (switch to Cranberry saves $2.8k/month). Anesthetic: your contracted rate with Septodont is 31% higher than direct purchasing. Implant supplies: noticed you're buying singles - bulk pricing saves 18%. Total potential monthly savings: $7,430. Want me to renegotiate all three contracts?"
       }
     ],
-    metrics: ["32% lower spend ¹", "30% less manual work ¹"]
+    metrics: ["32% lower spend", "30% less manual work"]
   }
 ];
 
