@@ -1,202 +1,274 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Sparkles, Zap, Brain, Shield, TrendingUp, TrendingDown, Award, Activity, Lock, CheckCircle, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
 import Link from "next/link";
 
-const queries = [
-  "Which locations are underperforming on hygiene revenue?",
-  "Show me our supply costs vs similar DSOs",
-  "Why did practice #12's orders spike last month?",
-  "What's our average chair time utilization?",
+const dynamicStatements = [
+  { metric: "32%", label: "lower supply spend on average", icon: TrendingDown, color: "text-healthcare-green" },
+  { metric: "18h", label: "saved per site each month", icon: Clock, color: "text-primary-blue" },
+  { metric: "3.2×", label: "first-year ROI from AI", icon: TrendingUp, color: "text-healthcare-green" },
+  { metric: "30%", label: "less manual work for staff", icon: TrendingDown, color: "text-healthcare-green" },
 ];
 
 export function Hero() {
-  const [activeQuery, setActiveQuery] = useState(0);
+  const [currentStatement, setCurrentStatement] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveQuery((prev) => (prev + 1) % queries.length);
-    }, 3000);
+      setCurrentStatement((prev) => (prev + 1) % dynamicStatements.length);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      {/* Background Effects */}
-      <div className="absolute inset-0 -z-10">
-        {/* Gradient Orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float animation-delay-2000"></div>
-        <div className="absolute -bottom-20 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float animation-delay-4000"></div>
+    <section id="hero" className="relative min-h-screen flex flex-col overflow-hidden section-background pt-20">
+      {/* Hero previously contained section-scoped gradient overlays and orbs.
+          These were removed to ensure a seamless global background.
+       */}
+
+      {/* Main content wrapper with proper spacing */}
+      <div className="w-full flex-1 flex flex-col px-4">
+        {/* Top spacer */}
+        <div className="flex-1 min-h-[40px] sm:min-h-[60px] md:min-h-[80px]"></div>
         
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-      </div>
-
-      <div className="container mx-auto px-4 pt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center max-w-5xl mx-auto"
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200/50 mb-8"
-          >
-            <Sparkles className="w-4 h-4 text-blue-600" />
-            <span className="text-sm font-medium text-blue-700">AI-POWERED BUSINESS INTELLIGENCE</span>
-          </motion.div>
-
-          {/* Main Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
-          >
-            <span className="block text-slate-900">What If Everyone In Your</span>
-            <span className="block text-gradient">Organization Could Get</span>
-            <span className="block text-slate-900">Instant Answers?</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto"
-          >
-            From procurement optimization to practice performance, our AI understands your entire operation. Just ask what you need to know.
-          </motion.p>
-
-          {/* Rotating Queries */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mb-12"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-white border border-slate-200 shadow-xl shadow-slate-900/5">
-              <span className="text-slate-500 font-medium">Try asking:</span>
-              <div className="relative h-7 flex items-center">
-                {queries.map((query, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ 
-                      opacity: activeQuery === index ? 1 : 0,
-                      y: activeQuery === index ? 0 : -10
-                    }}
-                    transition={{ duration: 0.5 }}
-                    className={`absolute whitespace-nowrap text-blue-600 font-semibold ${
-                      activeQuery === index ? 'block' : 'hidden'
-                    }`}
-                  >
-                    "{query}"
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 group"
+        <div className="container relative z-10 mx-auto">
+          <div className="max-w-6xl mx-auto">
+            {/* Liquid glass hero card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="liquid-glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 backdrop-blur-glass saturate-glass"
             >
-              Reserve Your Spot
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 hover:bg-slate-50 group"
-            >
-              <Play className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-              See It In Action
-            </Button>
-          </motion.div>
-        </motion.div>
-
-        {/* Visual Element */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="mt-20 relative"
-        >
-          <div className="mx-auto max-w-4xl">
-            <div className="relative">
-              {/* Main Visual Container */}
-              <div className="relative aspect-[16/9] rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl overflow-hidden">
-                {/* Animated Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-cyan-500/20"></div>
-                
-                {/* Grid Overlay */}
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
-                
-                {/* Floating Elements */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative">
-                    {/* Central Hub */}
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 opacity-20 blur-xl"
-                    ></motion.div>
+              <div className="text-center">
+                {/* Premium animated badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="inline-flex items-center justify-center mb-6 sm:mb-8"
+                >
+                  <div className="liquid-glass-healthcare rounded-full px-4 sm:px-6 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
+        
+                    <span className="text-xs sm:text-sm font-semibold text-primary-blue">
+                      Intelligence Platform
+                    </span>
                     
-                    {/* Orbiting Elements */}
-                    {[0, 1, 2, 3].map((i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-4 h-4 bg-white rounded-full"
-                        style={{
-                          top: "50%",
-                          left: "50%",
-                          transform: `rotate(${i * 90}deg) translateX(60px) translateY(-50%)`,
-                        }}
-                        animate={{
-                          transform: `rotate(${i * 90 + 360}deg) translateX(60px) translateY(-50%)`,
-                        }}
-                        transition={{
-                          duration: 10,
-                          repeat: Infinity,
-                          ease: "linear",
-                          delay: i * 0.25,
-                        }}
-                      />
-                    ))}
                   </div>
-                </div>
-                
-                {/* Text Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-white/80 text-lg font-medium mb-2">Your AI Assistant</div>
-                    <div className="text-white/60 text-sm">Processing dental intelligence...</div>
-                  </div>
-                </div>
+                </motion.div>
+
+                {/* Dynamic headline with data-driven messaging */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="mb-6 sm:mb-8"
+                >
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                    <span className="block">Instant Insight.</span>
+                    <span className="block gradient-text">Autonomous Purchasing.</span>
+                  </h1>
+                  
+                  {/* Dynamic metrics display */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentStatement}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5 }}
+                      className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg md:text-xl"
+                    >
+                      {(() => {
+                        const Icon = dynamicStatements[currentStatement].icon;
+                        return <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${dynamicStatements[currentStatement].color} flex-shrink-0`} />;
+                      })()}
+                      <span className="font-bold text-primary-blue text-lg sm:text-xl md:text-2xl">
+                        {dynamicStatements[currentStatement].metric}
+                      </span>
+                      <span className="text-text-secondary text-xs sm:text-base">
+                        {dynamicStatements[currentStatement].label}
+                      </span>
+                    </motion.div>
+                  </AnimatePresence>
+                </motion.div>
+
+                {/* Subheadline */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="text-base sm:text-lg md:text-xl lg:text-2xl text-text-secondary mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto body-professional px-4 sm:px-0"
+                >
+                  Ask a question, get the answer, let the agent place the order. 
+                  One system for appointments, inventory, and cashflow.
+                </motion.p>
+
+                {/* Premium CTA buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="flex justify-center items-center"
+                >
+                  <Button
+                    size="lg"
+                    className="premium-cta text-white font-semibold group px-8 sm:px-10 md:px-12 py-5 sm:py-6 md:py-7 text-sm sm:text-base md:text-lg"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const contactSection = document.getElementById('contact');
+                      if (contactSection) {
+                        const y = contactSection.getBoundingClientRect().top + window.pageYOffset;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
+                    }}
+                  >
+                    <span className="flex items-center gap-2">
+                      See the AI in action
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </Button>
+                </motion.div>
               </div>
-              
-              {/* Decorative Elements */}
-              <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-500 rounded-full blur-2xl opacity-20"></div>
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-cyan-500 rounded-full blur-2xl opacity-20"></div>
-            </div>
+            </motion.div>
+
+            {/* Feature highlights with liquid glass cards */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-3 md:gap-6 mt-8 sm:mt-10 md:mt-12"
+            >
+              {[
+                {
+                  title: "Secure",
+                  subtitle: "HIPAA & SOC 2 Compliant",
+                  description: "Healthcare-grade security standards",
+                  type: "compliance",
+                  metric: null
+                },
+                {
+                  title: "Reliable",
+                  subtitle: "99.99% Uptime",
+                  description: "Enterprise ready infrastructure",
+                  type: "uptime",
+                  metric: "99.99%"
+                },
+                {
+                  title: "Trusted",
+                  subtitle: "Y Combinator Portfolio",
+                  description: "Backed by Silicon Valley's top accelerator",
+                  type: "backed",
+                  metric: null
+                }
+              ].map((feature, index) => (
+                <motion.div
+                  key={feature.type}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.7 + index * 0.1,
+                    ease: "easeOut" 
+                  }}
+                  className="group"
+                >
+                  <div className="liquid-glass rounded-xl sm:rounded-lg md:rounded-2xl p-4 sm:p-3 md:p-6 h-full min-h-[120px] sm:min-h-[140px] md:min-h-[150px] flex flex-col justify-center relative overflow-hidden">
+                    
+                    {/* Icon/Visual Element */}
+                    <div className="flex justify-center relative h-10 sm:h-8 md:h-12 items-center mb-3 sm:mb-2 md:mb-4">
+                      {feature.type === "compliance" && (
+                        <div className="relative">
+                          <div className="flex items-center gap-2 sm:gap-1 md:gap-2">
+                            <Shield className="w-7 h-7 sm:w-6 sm:h-6 md:w-9 md:h-9 text-healthcare-green fill-healthcare-green" />
+                            <Lock className="w-7 h-7 sm:w-6 sm:h-6 md:w-9 md:h-9 text-primary-blue fill-primary-blue" />
+                          </div>
+                          <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-healthcare-green/15 to-primary-blue/15" />
+                        </div>
+                      )}
+                      
+                      {feature.type === "uptime" && (
+                        <div className="relative">
+                          <motion.div 
+                            className="relative z-10"
+                            animate={{ scale: [1, 1.02, 1] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                          >
+                            <div className="text-2xl sm:text-xl md:text-[2.5rem] font-extrabold text-primary-blue tabular-nums tracking-tight">{feature.metric}</div>
+                          </motion.div>
+                          <div className="absolute -inset-6 bg-primary-blue/10 blur-3xl rounded-full" />
+                        </div>
+                      )}
+                      
+                      {feature.type === "backed" && (
+                        <div className="relative">
+                          <img 
+                            src="/ycombinator-ar21.svg"
+                            alt="Y Combinator"
+                            className="h-12 sm:h-10 md:h-14 w-auto relative z-10"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-400/10 blur-3xl scale-150" />
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Divider */}
+                    <div className="w-10 sm:w-8 md:w-12 h-px bg-gray-900 dark:bg-gray-700 mx-auto mb-3 sm:mb-2 md:mb-4" />
+                    
+                    {/* Content */}
+                    <div className="text-center space-y-1 sm:space-y-1 md:space-y-2 relative z-10">
+                      <h3 className="font-bold text-[10px] sm:text-[9px] md:text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                        {feature.title}
+                      </h3>
+                      <p className="text-xs sm:text-[11px] md:text-sm font-bold text-gray-900 dark:text-white">
+                        {feature.subtitle}
+                      </p>
+                      <p className="text-[10px] sm:text-[9px] md:text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Premium scroll indicator - moved into content flow */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1 }}
+              className="hidden md:flex justify-center mt-12 md:mt-16"
+            >
+              <motion.button
+                onClick={() => {
+                  const rolesSection = document.getElementById('roles');
+                  if (rolesSection) {
+                    const yOffset = 0; // Offset to ensure content is not cut off
+                    const y = rolesSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }}
+                className="scroll-indicator-button-no-float group"
+                aria-label="Scroll to next section"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ 
+                  duration: 2.5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  repeatType: "loop"
+                }}
+              >
+                <ArrowRight className="w-5 h-5 text-primary-blue/80 rotate-90 group-hover:text-primary-blue transition-colors duration-300" />
+              </motion.button>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
+        
+        {/* Bottom spacer - matches top spacer for equal spacing */}
+        <div className="flex-1 min-h-[40px] sm:min-h-[60px] md:min-h-[80px]"></div>
       </div>
     </section>
   );

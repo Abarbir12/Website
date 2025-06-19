@@ -1,0 +1,6 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top left parallelogram -->
+  <path d="M10 10 L20 10 L14 20 L4 20 Z" fill="currentColor"/>
+  <!-- Main shape forming stylized D -->
+  <path d="M26 10 L26 26 C26 32 22 36 16 36 L4 36 L26 10 Z" fill="currentColor"/>
+</svg> 
